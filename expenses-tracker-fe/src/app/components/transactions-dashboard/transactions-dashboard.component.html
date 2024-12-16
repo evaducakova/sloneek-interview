@@ -1,0 +1,15 @@
+<div class="dashboard">
+  <div class="dashboard__transactions">
+    @if (transactions$ | async; as transactions) {
+      <app-transactions
+        [dataSource]="transactions"
+      ></app-transactions>
+    } @else {
+      no transactions
+    }
+  </div>
+  <div class="dashboard__balance">
+    <app-balance-card></app-balance-card>
+  </div>
+</div>
+
