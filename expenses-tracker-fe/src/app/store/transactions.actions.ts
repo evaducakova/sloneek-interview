@@ -1,5 +1,5 @@
-import { createAction, props } from '@ngrx/store';
-import { Transaction } from '../types/types';
+import {createAction, props} from '@ngrx/store';
+import {Transaction} from '../types/types';
 
 export const addTransaction = createAction(
   '[Transaction] Add Transaction',
@@ -14,5 +14,13 @@ export const loadTransactionsSuccess = createAction(
 );
 export const loadTransactionsFailure = createAction(
   '[Transaction] Load Transactions Failure',
+  props<{ error: string }>()
+);
+export const saveToLocalStorageSuccess = createAction(
+  '[Transaction] Save To Local Storage Success',
+  props<{ transactions: Transaction[] }>()
+);
+export const saveToLocalStorageFailure = createAction(
+  '[Transaction] Save To Local Storage Failure',
   props<{ error: string }>()
 );

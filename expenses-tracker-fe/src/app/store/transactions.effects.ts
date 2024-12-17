@@ -1,16 +1,19 @@
-import { inject, Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { LocalStorageService } from '../services/local-storage.service';
-import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
-import { of } from 'rxjs';
+import {inject, Injectable} from '@angular/core';
+import {Actions, createEffect, ofType} from '@ngrx/effects';
+import {LocalStorageService} from '../services/local-storage.service';
+import {catchError, map, mergeMap, switchMap, withLatestFrom} from 'rxjs/operators';
+import {of} from 'rxjs';
 import {
   addTransaction,
   loadTransactionsFailure,
   loadTransactionsFromLocalStorage,
   loadTransactionsSuccess,
+  saveToLocalStorageFailure,
+  saveToLocalStorageSuccess,
 } from './transactions.actions';
-import { Transaction } from '../types/types';
-import { Store } from '@ngrx/store';
+import {Transaction} from '../types/types';
+import {select, Store} from '@ngrx/store';
+import {transactionSelectors} from "./transaction.selector";
 
 @Injectable()
 export class TransactionsEffects {
@@ -24,10 +27,10 @@ export class TransactionsEffects {
       mergeMap(() =>
         this.localStorageService.loadTransactions().pipe(
           map((transactions: Transaction[]) =>
-            loadTransactionsSuccess({ transactions })
+            loadTransactionsSuccess({transactions})
           ),
           catchError((error) =>
-            of(loadTransactionsFailure({ error: error.message }))
+            of(loadTransactionsFailure({error: error.message}))
           )
         )
       )
@@ -37,15 +40,14 @@ export class TransactionsEffects {
   addTransaction$ = createEffect(() =>
     this.actions$.pipe(
       ofType(addTransaction),
-      withLatestFrom(this.store$.select('transactions')),
-      mergeMap(([action, transactions]) => {
-        const { transaction } = action;
+      withLatestFrom(this.store$.pipe(select(transactionSelectors.selectTransactions))),
+      switchMap(([_, transactions]) => {
         return this.localStorageService
-          .saveToLocalStorage('transactions', [...transactions, transaction])
+          .saveToLocalStorage('transactions', transactions)
           .pipe(
-            map(() => addTransaction({ transaction })),
+            map(() => saveToLocalStorageSuccess({transactions})),
             catchError((error) =>
-              of(loadTransactionsFailure({ error: error.message }))
+              of(saveToLocalStorageFailure({error: error.message}))
             )
           );
       })
