@@ -1,12 +1,19 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { TransactionsState } from './transactions.reducer';
+import {createFeatureSelector, createSelector} from '@ngrx/store';
+import {TransactionsState} from './transactions.reducer';
+import {Transaction, TransactionBalance} from "../types/types";
+import {TransactionSelectorUtil} from "./transaction.selector.util";
 
 const selectTransactionsState =
   createFeatureSelector<TransactionsState>('transactionsState');
 
 const selectTransactions = createSelector(
   selectTransactionsState,
-  (state: TransactionsState) => state.transactions
+  (state: TransactionsState): Transaction[] => state.transactions
 );
 
-export const transactionSelectors = { selectTransactions };
+const calculateBalance = createSelector(
+  selectTransactions,
+  (transactions: Transaction[]): TransactionBalance => TransactionSelectorUtil.calculateBalance(transactions)
+);
+
+export const transactionSelectors = {selectTransactions, calculateBalance};

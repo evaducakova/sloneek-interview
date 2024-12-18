@@ -15,3 +15,9 @@ export interface Transaction {
 
 export type TransactionType = 'income' | 'expense';
 export type Category = 'income' | 'food';
+
+export interface TransactionBalance {
+  incomes: number;
+  expenses: number;
+  balance: number;
+}

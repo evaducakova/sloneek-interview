@@ -1,13 +1,15 @@
 <div class="dashboard">
-  <div class="dashboard__transactions">
-    @if (transactions$ | async; as transactions) {
+  @if (transactions$ | async; as transactions) {
+    <div class="dashboard__transactions">
       <app-transactions
         [transactions]="transactions"
       ></app-transactions>
-    }
-  </div>
-  <div class="dashboard__balance">
-    <app-balance-card></app-balance-card>
-  </div>
-</div>
+    </div>
+  }
 
+  @if (balance$ | async; as balance) {
+    <div class="dashboard__balance">
+      <app-balance-card [balance]="balance"></app-balance-card>
+    </div>
+  }
+</div>

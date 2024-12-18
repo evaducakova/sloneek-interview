@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
-import {Transaction} from '../../types/types';
+import {Transaction, TransactionBalance} from '../../types/types';
 import {TransactionsFacadeService} from '../../services/transactions-facade.service';
 import {Observable} from 'rxjs';
 import {AsyncPipe} from '@angular/common';
@@ -24,10 +24,13 @@ import {BalanceCardComponent} from '../balance-card/balance-card.component';
 })
 export class TransactionsDashboardComponent {
   transactionsFacadeService: TransactionsFacadeService = inject(TransactionsFacadeService);
+
   transactions$: Observable<Transaction[]>;
+  balance$: Observable<TransactionBalance>;
 
   constructor() {
     this.transactionsFacadeService.loadTransactions();
     this.transactions$ = this.transactionsFacadeService.selectTransactions();
+    this.balance$ = this.transactionsFacadeService.calculateBalance();
   }
 }

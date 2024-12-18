@@ -18,6 +18,20 @@
     td {
       font-size: 12px;
     }
+
+    &--income {
+      color: #004d40;
+      font-weight: bold;
+    }
+
+    &--expense {
+      color: crimson;
+      font-weight: bold;
+    }
+
+    &--right-align {
+      text-align: right;
+    }
   }
 
   &__no-data {

@@ -1,17 +1,19 @@
 import {ChangeDetectionStrategy, Component, inject, Input} from '@angular/core';
 import {MatTableModule} from '@angular/material/table';
 import {Transaction} from '../../types/types';
-import {CurrencyPipe, DatePipe} from '@angular/common';
+import {CurrencyPipe, DatePipe, NgClass} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDialog} from '@angular/material/dialog';
 import {AddNewTransactionDialogComponent} from '../add-new-transaction-dialog/add-new-transaction-dialog.component';
 import {TransactionsFacadeService} from "../../services/transactions-facade.service";
+import {TransactionValuePipe} from "../../utils/transaction-value.pipe";
 
 @Component({
   selector: 'app-transactions',
   standalone: true,
-  imports: [MatTableModule, CurrencyPipe, MatButtonModule, MatIconModule, DatePipe],
+  imports: [MatTableModule, MatButtonModule, MatIconModule, DatePipe, NgClass, TransactionValuePipe],
+  providers: [CurrencyPipe],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,7 +26,6 @@ export class TransactionsComponent {
   displayedColumns: string[] = [
     'name',
     'date',
-    'type',
     'description',
     'value',
     'category',

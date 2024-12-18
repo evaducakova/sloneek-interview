@@ -57,7 +57,7 @@ export class AddNewTransactionDialogComponent {
       name: ['', Validators.required],
       date: ['', Validators.required],
       type: ['', Validators.required],
-      description: ['', Validators.required],
+      description: [''],
       value: ['', Validators.required],
       category: ['', Validators.required],
     });

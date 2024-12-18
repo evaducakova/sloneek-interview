@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {select, Store} from '@ngrx/store';
-import {Transaction} from '../types/types';
+import {Transaction, TransactionBalance} from '../types/types';
 import {TransactionsState} from '../store/transactions.reducer';
 import {Observable} from 'rxjs';
 import {addSampleTransactions, addTransaction, loadTransactionsFromLocalStorage,} from '../store/transactions.actions';
@@ -40,5 +40,9 @@ export class TransactionsFacadeService {
     }
 
     this.store.dispatch(addSampleTransactions({transactions: sampleTransactions}));
+  }
+
+  calculateBalance(): Observable<TransactionBalance> {
+    return this.store.pipe(select(transactionSelectors.calculateBalance));
   }
 }
