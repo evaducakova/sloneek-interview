@@ -1,5 +1,6 @@
 import {ActionReducer, createReducer, on} from '@ngrx/store';
 import {
+  addSampleTransactions,
   addTransaction,
   loadTransactionsFailure,
   loadTransactionsFromLocalStorage,
@@ -23,9 +24,6 @@ export const initialState: TransactionsState = {
 export const transactionsReducer: ActionReducer<TransactionsState> =
   createReducer(
     initialState,
-    on(loadTransactionsFromLocalStorage, (state) => ({
-      ...state,
-    })),
     on(loadTransactionsSuccess, (state, {transactions}) => ({
       ...state,
       transactions,
@@ -34,9 +32,14 @@ export const transactionsReducer: ActionReducer<TransactionsState> =
       ...state,
       error,
     })),
+
     on(addTransaction, (state, {transaction}) => ({
       ...state,
       transactions: [...state.transactions, transaction],
+    })),
+    on(addSampleTransactions, (state, {transactions}) => ({
+      ...state,
+      transactions
     })),
     on(saveToLocalStorageSuccess, (state, {transactions}) => ({
       ...state,

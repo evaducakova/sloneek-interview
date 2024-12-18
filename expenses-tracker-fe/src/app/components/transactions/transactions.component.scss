@@ -15,4 +15,18 @@
     background-color: unset;
     box-shadow: none;
   }
+
+  &__no-data {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+
+    span {
+      display: block;
+      margin: auto;
+      padding: 1rem;
+    }
+  }
 }

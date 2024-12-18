@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {
   MatDialogActions,
   MatDialogClose,
@@ -6,19 +6,14 @@ import {
   MatDialogRef,
   MatDialogTitle,
 } from '@angular/material/dialog';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatSelectModule } from '@angular/material/select';
-import { MatButtonModule } from '@angular/material/button';
-import { Transaction } from '../../types/types';
-import { TransactionsFacadeService } from '../../services/transactions-facade.service';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators,} from '@angular/forms';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatSelectModule} from '@angular/material/select';
+import {MatButtonModule} from '@angular/material/button';
+import {Transaction} from '../../types/types';
+import {TransactionsFacadeService} from '../../services/transactions-facade.service';
 import {
   DateAdapter,
   MAT_DATE_FORMATS,
@@ -44,21 +39,21 @@ import {
     ReactiveFormsModule,
   ],
   providers: [
-    { provide: DateAdapter, useClass: NativeDateAdapter },
-    { provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS },
+    {provide: DateAdapter, useClass: NativeDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS},
   ],
   templateUrl: './add-new-transaction-dialog.component.html',
   styleUrl: './add-new-transaction-dialog.component.scss',
 })
 export class AddNewTransactionDialogComponent {
+  transactionsFacadeService: TransactionsFacadeService = inject(TransactionsFacadeService);
+  formBuilder: FormBuilder = inject(FormBuilder);
   transactionForm: FormGroup;
 
   constructor(
-    private fb: FormBuilder,
-    private transactionsFacadeService: TransactionsFacadeService,
     private dialogRef: MatDialogRef<AddNewTransactionDialogComponent>
   ) {
-    this.transactionForm = this.fb.group({
+    this.transactionForm = this.formBuilder.group({
       name: ['', Validators.required],
       date: ['', Validators.required],
       type: ['', Validators.required],

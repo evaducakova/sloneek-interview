@@ -1,9 +1,10 @@
 import {inject, Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {LocalStorageService} from '../services/local-storage.service';
-import {catchError, map, mergeMap, switchMap, withLatestFrom} from 'rxjs/operators';
+import {catchError, map, mergeMap, switchMap, tap, withLatestFrom} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {
+  addSampleTransactions,
   addTransaction,
   loadTransactionsFailure,
   loadTransactionsFromLocalStorage,
@@ -40,6 +41,23 @@ export class TransactionsEffects {
   addTransaction$ = createEffect(() =>
     this.actions$.pipe(
       ofType(addTransaction),
+      withLatestFrom(this.store$.pipe(select(transactionSelectors.selectTransactions))),
+      switchMap(([_, transactions]) => {
+        return this.localStorageService
+          .saveToLocalStorage('transactions', transactions)
+          .pipe(
+            map(() => saveToLocalStorageSuccess({transactions})),
+            catchError((error) =>
+              of(saveToLocalStorageFailure({error: error.message}))
+            )
+          );
+      })
+    )
+  );
+
+  addSampleTransactions$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(addSampleTransactions),
       withLatestFrom(this.store$.pipe(select(transactionSelectors.selectTransactions))),
       switchMap(([_, transactions]) => {
         return this.localStorageService

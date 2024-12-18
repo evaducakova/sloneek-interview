@@ -1,12 +1,12 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Transaction } from '../../types/types';
-import { TransactionsFacadeService } from '../../services/transactions-facade.service';
-import { Observable } from 'rxjs';
-import { AsyncPipe, NgOptimizedImage } from '@angular/common';
-import { TransactionsComponent } from '../transactions/transactions.component';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { BalanceCardComponent } from '../balance-card/balance-card.component';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
+import {Transaction} from '../../types/types';
+import {TransactionsFacadeService} from '../../services/transactions-facade.service';
+import {Observable} from 'rxjs';
+import {AsyncPipe} from '@angular/common';
+import {TransactionsComponent} from '../transactions/transactions.component';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
+import {BalanceCardComponent} from '../balance-card/balance-card.component';
 
 @Component({
   selector: 'app-transactions-dashboard',
@@ -23,9 +23,10 @@ import { BalanceCardComponent } from '../balance-card/balance-card.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TransactionsDashboardComponent {
+  transactionsFacadeService: TransactionsFacadeService = inject(TransactionsFacadeService);
   transactions$: Observable<Transaction[]>;
 
-  constructor(private transactionsFacadeService: TransactionsFacadeService) {
+  constructor() {
     this.transactionsFacadeService.loadTransactions();
     this.transactions$ = this.transactionsFacadeService.selectTransactions();
   }
