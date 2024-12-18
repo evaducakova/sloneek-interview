@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, inject, Input} from '@angular/core';
 import {MatTableModule} from '@angular/material/table';
 import {Transaction} from '../../types/types';
-import {CurrencyPipe} from '@angular/common';
+import {CurrencyPipe, DatePipe} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDialog} from '@angular/material/dialog';
@@ -11,7 +11,7 @@ import {TransactionsFacadeService} from "../../services/transactions-facade.serv
 @Component({
   selector: 'app-transactions',
   standalone: true,
-  imports: [MatTableModule, CurrencyPipe, MatButtonModule, MatIconModule],
+  imports: [MatTableModule, CurrencyPipe, MatButtonModule, MatIconModule, DatePipe],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
