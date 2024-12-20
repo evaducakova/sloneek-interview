@@ -1,6 +1,33 @@
-.expenses-tracker-header{
-  display: flex;
-  justify-content: end;
-  color: #F2ECEC;
-  margin-right: 3rem;
+.expenses-tracker {
+  &__header {
+    display: flex;
+    justify-content: end;
+    color: #F2ECEC;
+    margin-right: 3rem;
+  }
+
+  &__navigation {
+    ul {
+      display: flex;
+      gap: 2rem;
+      justify-content: flex-end;
+      margin-right: 3rem;
+      list-style-type: none;
+      padding: 0;
+    }
+
+    a {
+      text-decoration: none;
+      color: #F2ECEC;
+      display: block;
+
+      &:hover {
+        color: #f9e3e0;
+      }
+
+      &.active {
+        text-decoration: underline;
+      }
+    }
+  }
 }

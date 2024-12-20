@@ -1,11 +1,17 @@
 import {inject, Injectable} from '@angular/core';
 import {select, Store} from '@ngrx/store';
-import {Transaction, TransactionBalance} from '../types/types';
+import {Category, Transaction, TransactionBalance} from '../types/types';
 import {TransactionsState} from '../store/transactions.reducer';
 import {Observable} from 'rxjs';
-import {addSampleTransactions, addTransaction, loadTransactionsFromLocalStorage,} from '../store/transactions.actions';
+import {
+  addSampleData,
+  addTransaction,
+  loadExpenseCategoriesFromLocalStorage,
+  loadIncomeCategoriesFromLocalStorage,
+  loadTransactionsFromLocalStorage,
+} from '../store/transactions.actions';
 import {transactionSelectors} from '../store/transaction.selector';
-import {v4 as uuidv4} from "uuid";
+import {TransactionsUtil} from "../utils/transactions.util";
 
 @Injectable({
   providedIn: 'root',
@@ -17,32 +23,37 @@ export class TransactionsFacadeService {
     this.store.dispatch(loadTransactionsFromLocalStorage());
   }
 
+  loadIncomeCategories(): void {
+    this.store.dispatch(loadIncomeCategoriesFromLocalStorage());
+  }
+
+  loadExpenseCategories(): void {
+    this.store.dispatch(loadExpenseCategoriesFromLocalStorage());
+  }
+
   selectTransactions(): Observable<Transaction[]> {
     return this.store.pipe(select(transactionSelectors.selectTransactions));
+  }
+
+  selectIncomeCategories(): Observable<Category> {
+    return this.store.pipe(select(transactionSelectors.selectIncomeCategories));
+  }
+
+  selectExpenseCategories(): Observable<Category> {
+    return this.store.pipe(select(transactionSelectors.selectExpenseCategories));
   }
 
   addTransaction(transaction: Transaction): void {
     this.store.dispatch(addTransaction({transaction}));
   }
 
-  generateSampleTransactions(): void {
-    const sampleTransactions: Transaction[] = [];
-    for (let i = 0; i < 20; i++) {
-      sampleTransactions.push({
-        id: uuidv4(),
-        name: `Transaction ${i + 1}`,
-        date: new Date().toISOString().split('T')[0],
-        type: i % 2 === 0 ? 'income' : 'expense',
-        description: `Description for transaction ${i + 1}`,
-        value: parseFloat((Math.random() * 100).toFixed(2)),
-        category: i % 2 === 0 ? 'income' : 'food',
-      });
-    }
-
-    this.store.dispatch(addSampleTransactions({transactions: sampleTransactions}));
+  generateSampleData(): void {
+    const {transactions, incomeCategories, expenseCategories} = TransactionsUtil.generateSampleTransactions();
+    this.store.dispatch(addSampleData({transactions, incomeCategories, expenseCategories}));
   }
 
   calculateBalance(): Observable<TransactionBalance> {
     return this.store.pipe(select(transactionSelectors.calculateBalance));
   }
+
 }

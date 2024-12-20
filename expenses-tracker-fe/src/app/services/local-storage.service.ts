@@ -10,7 +10,7 @@ export class LocalStorageService {
 
   saveToLocalStorage(
     key: string,
-    value: Array<Transaction | Category>
+    value: Array<Transaction> | Category
   ): Observable<void> {
     return new Observable<void>((observer) => {
       try {
@@ -26,29 +26,25 @@ export class LocalStorageService {
   }
 
   loadTransactions(): Observable<Transaction[]> {
-    return new Observable<Transaction[]>((observer) => {
-      try {
-        const transactions = this.getLocalStorageItem('transactions');
-        observer.next(transactions ? JSON.parse(transactions) : []);
-        observer.complete();
-      } catch (error) {
-        observer.error(
-          'Failed to retrieve transactions from localStorage: ' + error
-        );
-      }
-    });
+    return this.loadFromLocalStorage<Transaction[]>('transactions', []);
   }
 
-  loadCategories(): Observable<Category[]> {
-    return new Observable<Category[]>((observer) => {
+  loadIncomeCategories(): Observable<Category> {
+    return this.loadFromLocalStorage<Category>('incomeCategories', {});
+  }
+
+  loadExpenseCategories(): Observable<Category> {
+    return this.loadFromLocalStorage<Category>('expenseCategories', {});
+  }
+
+  private loadFromLocalStorage<T>(key: string, defaultValue: T): Observable<T> {
+    return new Observable<T>((observer) => {
       try {
-        const categories = this.getLocalStorageItem('categories');
-        observer.next(categories ? JSON.parse(categories) : []);
+        const item = this.getLocalStorageItem(key);
+        observer.next(item ? JSON.parse(item) : defaultValue);
         observer.complete();
       } catch (error) {
-        observer.error(
-          'Failed to retrieve categories from localStorage: ' + error
-        );
+        observer.error(`Failed to retrieve ${key} from localStorage: ${error}`);
       }
     });
   }

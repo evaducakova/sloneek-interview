@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {TransactionBalance} from "../../types/types";
+import {TransactionBalance} from "../../../types/types";
 import {CurrencyPipe} from "@angular/common";
 
 @Component({

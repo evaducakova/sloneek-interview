@@ -1,24 +1,25 @@
 import {ActionReducer, createReducer, on} from '@ngrx/store';
 import {
-  addSampleTransactions,
+  addSampleData,
   addTransaction,
-  loadTransactionsFailure,
-  loadTransactionsFromLocalStorage,
+  loadExpenseCategoriesSuccess,
+  loadIncomeCategoriesSuccess,
   loadTransactionsSuccess,
   saveToLocalStorageFailure,
-  saveToLocalStorageSuccess,
 } from './transactions.actions';
 import {Category, Transaction} from '../types/types';
 
 export interface TransactionsState {
   transactions: Transaction[];
-  categories: Category[];
+  incomeCategories: Category;
+  expenseCategories: Category;
   error?: string;
 }
 
 export const initialState: TransactionsState = {
   transactions: [],
-  categories: [],
+  incomeCategories: {} as Category,
+  expenseCategories: {} as Category,
 };
 
 export const transactionsReducer: ActionReducer<TransactionsState> =
@@ -28,25 +29,28 @@ export const transactionsReducer: ActionReducer<TransactionsState> =
       ...state,
       transactions,
     })),
-    on(loadTransactionsFailure, (state, {error}) => ({
-      ...state,
-      error,
-    })),
 
     on(addTransaction, (state, {transaction}) => ({
       ...state,
       transactions: [...state.transactions, transaction],
     })),
-    on(addSampleTransactions, (state, {transactions}) => ({
-      ...state,
-      transactions
-    })),
-    on(saveToLocalStorageSuccess, (state, {transactions}) => ({
+    on(addSampleData, (state, {transactions, incomeCategories, expenseCategories}) => ({
       ...state,
       transactions,
+      incomeCategories,
+      expenseCategories,
     })),
     on(saveToLocalStorageFailure, (state, {error}) => ({
       ...state,
       error,
+    })),
+
+    on(loadIncomeCategoriesSuccess, (state, {categories}) => ({
+      ...state,
+      incomeCategories: categories
+    })),
+    on(loadExpenseCategoriesSuccess, (state, {categories}) => ({
+      ...state,
+      expenseCategories: categories
     })),
   );

@@ -1,0 +1,43 @@
+<div class="categories">
+  <div class="categories__income">
+    <h2 mat-dialog-title>Income Categories</h2>
+    @if (incomeCategories$ | async; as incomeCategories) {
+      <mat-list role="list">
+        @for (category of (incomeCategories | keyvalue); track category.key) {
+          <mat-divider></mat-divider>
+          <mat-list-item role="listitem">
+            <b>{{ category.key }}</b>
+          </mat-list-item>
+          <mat-list role="list" style="margin-left: 2rem">
+            @for (value of category.value; track value) {
+              <mat-list-item role="listitem">
+                {{ value }}
+              </mat-list-item>
+            }
+          </mat-list>
+        }
+      </mat-list>
+    }
+  </div>
+
+  <div class="categories__expense">
+    <h2 mat-dialog-title>Expense Categories</h2>
+    @if (expenseCategories$ | async; as expenseCategories) {
+      <mat-list role="list">
+        @for (category of (expenseCategories | keyvalue); track category.key) {
+          <mat-divider></mat-divider>
+          <mat-list-item role="listitem">
+            <b>{{ category.key }}</b>
+          </mat-list-item>
+          <mat-list role="list" style="margin-left: 2rem">
+            @for (value of category.value; track value) {
+              <mat-list-item role="listitem">
+                {{ value }}
+              </mat-list-item>
+            }
+          </mat-list>
+        }
+      </mat-list>
+    }
+  </div>
+</div>

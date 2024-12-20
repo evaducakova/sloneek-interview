@@ -1,18 +1,20 @@
 import {inject, Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {LocalStorageService} from '../services/local-storage.service';
-import {catchError, map, mergeMap, switchMap, tap, withLatestFrom} from 'rxjs/operators';
+import {catchError, map, mergeMap, switchMap, withLatestFrom} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {
-  addSampleTransactions,
+  addSampleData,
   addTransaction,
-  loadTransactionsFailure,
+  loadDataFailure, loadExpenseCategoriesFromLocalStorage,
+  loadExpenseCategoriesSuccess, loadIncomeCategoriesFromLocalStorage,
+  loadIncomeCategoriesSuccess,
   loadTransactionsFromLocalStorage,
   loadTransactionsSuccess,
   saveToLocalStorageFailure,
   saveToLocalStorageSuccess,
 } from './transactions.actions';
-import {Transaction} from '../types/types';
+import {Category, Transaction} from '../types/types';
 import {select, Store} from '@ngrx/store';
 import {transactionSelectors} from "./transaction.selector";
 
@@ -31,7 +33,7 @@ export class TransactionsEffects {
             loadTransactionsSuccess({transactions})
           ),
           catchError((error) =>
-            of(loadTransactionsFailure({error: error.message}))
+            of(loadDataFailure({error: error.message}))
           )
         )
       )
@@ -46,7 +48,7 @@ export class TransactionsEffects {
         return this.localStorageService
           .saveToLocalStorage('transactions', transactions)
           .pipe(
-            map(() => saveToLocalStorageSuccess({transactions})),
+            map(() => saveToLocalStorageSuccess({data: transactions})),
             catchError((error) =>
               of(saveToLocalStorageFailure({error: error.message}))
             )
@@ -57,18 +59,90 @@ export class TransactionsEffects {
 
   addSampleTransactions$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(addSampleTransactions),
-      withLatestFrom(this.store$.pipe(select(transactionSelectors.selectTransactions))),
+      ofType(addSampleData),
+      withLatestFrom(
+        this.store$.pipe(select(transactionSelectors.selectTransactions)),
+      ),
       switchMap(([_, transactions]) => {
         return this.localStorageService
           .saveToLocalStorage('transactions', transactions)
           .pipe(
-            map(() => saveToLocalStorageSuccess({transactions})),
+            map(() => saveToLocalStorageSuccess({data: transactions})),
             catchError((error) =>
               of(saveToLocalStorageFailure({error: error.message}))
             )
           );
       })
+    )
+  );
+
+  addSampleIncomeCategories$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(addSampleData),
+      withLatestFrom(
+        this.store$.pipe(select(transactionSelectors.selectIncomeCategories)),
+      ),
+      switchMap(([_, incomeCategories]) => {
+        return this.localStorageService
+          .saveToLocalStorage('incomeCategories', incomeCategories)
+          .pipe(
+            map(() => saveToLocalStorageSuccess({data: incomeCategories})),
+            catchError((error) =>
+              of(saveToLocalStorageFailure({error: error.message}))
+            )
+          );
+      })
+    )
+  );
+
+  addSampleExpenseCategories$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(addSampleData),
+      withLatestFrom(
+        this.store$.pipe(select(transactionSelectors.selectExpenseCategories)),
+      ),
+      switchMap(([_, expenseCategories]) => {
+        return this.localStorageService
+          .saveToLocalStorage('expenseCategories', expenseCategories)
+          .pipe(
+            map(() => saveToLocalStorageSuccess({data: expenseCategories})),
+            catchError((error) =>
+              of(saveToLocalStorageFailure({error: error.message}))
+            )
+          );
+      })
+    )
+  );
+
+  loadIncomeCategoriesFromLocalStorage$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadIncomeCategoriesFromLocalStorage),
+      mergeMap(() =>
+        this.localStorageService.loadIncomeCategories().pipe(
+          map((categories: Category) =>
+            loadIncomeCategoriesSuccess({categories})
+          ),
+          catchError((error) =>
+            of(loadDataFailure({error: error.message}))
+          )
+        )
+      )
+    )
+  );
+
+  loadExpenseCategoriesFromLocalStorage$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadExpenseCategoriesFromLocalStorage),
+      mergeMap(() =>
+        this.localStorageService.loadExpenseCategories().pipe(
+          map((categories: Category) =>
+            loadExpenseCategoriesSuccess({categories})
+          ),
+          catchError((error) =>
+            of(loadDataFailure({error: error.message}))
+          )
+        )
+      )
     )
   );
 }

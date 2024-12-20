@@ -1,8 +1,3 @@
-// export interface Category {
-//   id: number;
-//   name: string;
-// }
-
 export interface Transaction {
   id: string;
   name: string;
@@ -10,11 +5,16 @@ export interface Transaction {
   type: TransactionType;
   description: string;
   value: number;
-  category: Category;
+  category: {
+    [key: string]: string;
+  };
 }
 
 export type TransactionType = 'income' | 'expense';
-export type Category = 'income' | 'food';
+
+export interface Category {
+  [key: string]: string[];
+}
 
 export interface TransactionBalance {
   incomes: number;

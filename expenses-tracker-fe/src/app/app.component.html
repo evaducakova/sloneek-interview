@@ -1,2 +1,11 @@
-<h1 class="expenses-tracker-header">Expenses Tracker</h1>
-<app-transactions-dashboard></app-transactions-dashboard>
+<h1 class="expenses-tracker__header">Expenses Tracker</h1>
+<nav class="expenses-tracker__navigation">
+  <ul>
+    <li><a routerLink="/transactions" routerLinkActive="active"
+           ariaCurrentWhenActive="page">Transactions</a></li>
+    <li><a routerLink="/categories" routerLinkActive="active"
+           ariaCurrentWhenActive="page">Categories</a></li>
+  </ul>
+</nav>
+
+<router-outlet></router-outlet>

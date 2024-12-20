@@ -12,8 +12,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
-import {Transaction} from '../../types/types';
-import {TransactionsFacadeService} from '../../services/transactions-facade.service';
+import {Category, Transaction} from '../../../types/types';
+import {TransactionsFacadeService} from '../../../services/transactions-facade.service';
 import {
   DateAdapter,
   MAT_DATE_FORMATS,
@@ -21,6 +21,7 @@ import {
   MatNativeDateModule,
   NativeDateAdapter,
 } from '@angular/material/core';
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-add-new-transaction-dialog',
@@ -50,6 +51,9 @@ export class AddNewTransactionDialogComponent {
   formBuilder: FormBuilder = inject(FormBuilder);
   transactionForm: FormGroup;
 
+  incomeCategories$: Observable<Category>;
+  expenseCategories$: Observable<Category>;
+
   constructor(
     private dialogRef: MatDialogRef<AddNewTransactionDialogComponent>
   ) {
@@ -61,6 +65,9 @@ export class AddNewTransactionDialogComponent {
       value: ['', Validators.required],
       category: ['', Validators.required],
     });
+
+    this.incomeCategories$ = this.transactionsFacadeService.selectIncomeCategories();
+    this.expenseCategories$ = this.transactionsFacadeService.selectExpenseCategories();
   }
 
   saveTransaction(): void {
