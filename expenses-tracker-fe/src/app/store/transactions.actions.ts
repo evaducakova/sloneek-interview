@@ -19,11 +19,11 @@ export const addTransaction = createAction(
 );
 export const addSampleData = createAction(
   '[Transaction] Add Sample Data',
-  props<{ transactions: Transaction[], incomeCategories: Category, expenseCategories: Category }>()
+  props<{ transactions: Transaction[], incomeCategories: Category[], expenseCategories: Category[] }>()
 );
 export const saveToLocalStorageSuccess = createAction(
   '[Transaction] Save To Local Storage Success',
-  props<{ data: Transaction[] | Category }>()
+  props<{ data: Transaction[] | Category[] }>()
 );
 export const saveToLocalStorageFailure = createAction(
   '[Transaction] Save To Local Storage Failure',
@@ -38,9 +38,25 @@ export const loadExpenseCategoriesFromLocalStorage = createAction(
 );
 export const loadIncomeCategoriesSuccess = createAction(
   '[Transaction] Load Income Categories Success',
-  props<{ categories: Category }>()
+  props<{ categories: Category[] }>()
 );
 export const loadExpenseCategoriesSuccess = createAction(
   '[Transaction] Load Expense Categories Success',
-  props<{ categories: Category }>()
+  props<{ categories: Category[] }>()
+);
+export const addOrEditIncomeCategory = createAction(
+  '[Transaction] Add Or Edit Income Category',
+  props<{ category: Category }>()
+);
+export const addOrEditExpenseCategory = createAction(
+  '[Transaction] Add Or Edit Expense Category',
+  props<{ category: Category }>()
+);
+export const removeIncomeCategory = createAction(
+  '[Transaction] Remove Income Category',
+  props<{ id: string }>()
+);
+export const removeExpenseCategory = createAction(
+  '[Transaction] Remove Expense Category',
+  props<{ id: string }>()
 );

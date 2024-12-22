@@ -13,12 +13,12 @@ const selectTransactions = createSelector(
 
 const selectIncomeCategories = createSelector(
   selectTransactionsState,
-  (state: TransactionsState): Category => state.incomeCategories
+  (state: TransactionsState): Category[] => state.incomeCategories
 );
 
 const selectExpenseCategories = createSelector(
   selectTransactionsState,
-  (state: TransactionsState): Category => state.expenseCategories
+  (state: TransactionsState): Category[] => state.expenseCategories
 );
 
 const calculateBalance = createSelector(

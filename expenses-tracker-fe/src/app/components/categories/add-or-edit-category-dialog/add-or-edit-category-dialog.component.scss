@@ -1,0 +1,13 @@
+.form-row {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+
+  &--name {
+    width: calc(100% - 4rem);
+  }
+}
+
+mat-form-field {
+  flex: 1;
+}

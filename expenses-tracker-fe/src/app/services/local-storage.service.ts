@@ -1,16 +1,14 @@
-import { Injectable } from '@angular/core';
-import { Category, Transaction } from '../types/types';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {Category, Transaction} from '../types/types';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LocalStorageService {
-  constructor() {}
-
   saveToLocalStorage(
     key: string,
-    value: Array<Transaction> | Category
+    value: Array<Transaction | Category>
   ): Observable<void> {
     return new Observable<void>((observer) => {
       try {
@@ -29,12 +27,12 @@ export class LocalStorageService {
     return this.loadFromLocalStorage<Transaction[]>('transactions', []);
   }
 
-  loadIncomeCategories(): Observable<Category> {
-    return this.loadFromLocalStorage<Category>('incomeCategories', {});
+  loadIncomeCategories(): Observable<Category[]> {
+    return this.loadFromLocalStorage<Category[]>('incomeCategories', []);
   }
 
-  loadExpenseCategories(): Observable<Category> {
-    return this.loadFromLocalStorage<Category>('expenseCategories', {});
+  loadExpenseCategories(): Observable<Category[]> {
+    return this.loadFromLocalStorage<Category[]>('expenseCategories', []);
   }
 
   private loadFromLocalStorage<T>(key: string, defaultValue: T): Observable<T> {

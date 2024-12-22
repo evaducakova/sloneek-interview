@@ -1,43 +1,35 @@
 <div class="categories">
-  <div class="categories__income">
-    <h2 mat-dialog-title>Income Categories</h2>
+  <div>
+    <div class="categories__table-header">
+      <h2 mat-dialog-title>Income Categories</h2>
+      <button mat-icon-button color="primary" aria-hidden="false"
+              aria-label="add new income category"
+              (click)="openAddNewCategory('income')">
+        <mat-icon fontIcon="add"></mat-icon>
+      </button>
+    </div>
     @if (incomeCategories$ | async; as incomeCategories) {
-      <mat-list role="list">
-        @for (category of (incomeCategories | keyvalue); track category.key) {
-          <mat-divider></mat-divider>
-          <mat-list-item role="listitem">
-            <b>{{ category.key }}</b>
-          </mat-list-item>
-          <mat-list role="list" style="margin-left: 2rem">
-            @for (value of category.value; track value) {
-              <mat-list-item role="listitem">
-                {{ value }}
-              </mat-list-item>
-            }
-          </mat-list>
-        }
-      </mat-list>
+      <app-category-table
+        [categories]="incomeCategories"
+        [transactionType]="'income'">
+      </app-category-table>
     }
   </div>
 
-  <div class="categories__expense">
-    <h2 mat-dialog-title>Expense Categories</h2>
+  <div>
+    <div class="categories__table-header">
+      <h2 mat-dialog-title>Expense Categories</h2>
+      <button mat-icon-button color="primary" aria-hidden="false"
+              aria-label="add new expense category"
+              (click)="openAddNewCategory('expense')">
+        <mat-icon fontIcon="add"></mat-icon>
+      </button>
+    </div>
     @if (expenseCategories$ | async; as expenseCategories) {
-      <mat-list role="list">
-        @for (category of (expenseCategories | keyvalue); track category.key) {
-          <mat-divider></mat-divider>
-          <mat-list-item role="listitem">
-            <b>{{ category.key }}</b>
-          </mat-list-item>
-          <mat-list role="list" style="margin-left: 2rem">
-            @for (value of category.value; track value) {
-              <mat-list-item role="listitem">
-                {{ value }}
-              </mat-list-item>
-            }
-          </mat-list>
-        }
-      </mat-list>
+      <app-category-table
+        [categories]="expenseCategories"
+        [transactionType]="'expense'">
+      </app-category-table>
     }
   </div>
 </div>

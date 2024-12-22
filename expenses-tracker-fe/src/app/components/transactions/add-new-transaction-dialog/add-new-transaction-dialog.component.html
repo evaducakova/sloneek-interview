@@ -2,10 +2,10 @@
 <mat-dialog-content>
   <form [formGroup]="transactionForm">
     <div class="form-row">
-    <mat-form-field appearance="fill">
-      <mat-label>Name</mat-label>
-      <input matInput formControlName="name" required/>
-    </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" required/>
+      </mat-form-field>
     </div>
 
     <div class="form-row">
@@ -58,9 +58,14 @@
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-flat-button mat-dialog-close aria-hidden="false"
+          aria-label="dialog close">Cancel
+  </button>
   <button
-    mat-button
+    mat-flat-button
+    color="primary"
+    aria-hidden="false"
+    aria-label="dialog save"
     (click)="saveTransaction()"
     [disabled]="!transactionForm.valid"
   >

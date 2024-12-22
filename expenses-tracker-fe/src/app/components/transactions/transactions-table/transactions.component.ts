@@ -19,8 +19,8 @@ import {TransactionValuePipe} from "../../../utils/transaction-value.pipe";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TransactionsComponent {
-  transactionsFacadeService: TransactionsFacadeService = inject(TransactionsFacadeService);
-  dialog: MatDialog = inject(MatDialog);
+  readonly transactionsFacadeService: TransactionsFacadeService = inject(TransactionsFacadeService);
+  readonly dialog: MatDialog = inject(MatDialog);
 
   @Input() transactions: Transaction[] = [];
   displayedColumns: string[] = [
@@ -32,7 +32,7 @@ export class TransactionsComponent {
   ];
 
   openAddNewTransactionDialog(): void {
-    this.dialog.open(AddNewTransactionDialogComponent);
+    this.dialog.open(AddNewTransactionDialogComponent, {width: '400px'});
   }
 
   loadSampleData(): void {

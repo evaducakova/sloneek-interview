@@ -1,0 +1,36 @@
+<mat-list role="list">
+  @for (category of categories; track category.id) {
+    @for (categoryKeyValue of (category.value | keyvalue); track categoryKeyValue.key) {
+      <mat-divider></mat-divider>
+      <mat-list-item role="listitem" style="padding: 0">
+        <div class="list-item-row">
+          <div><b>{{ categoryKeyValue.key }}</b></div>
+          <div>
+            <button mat-icon-button color="primary" aria-hidden="false"
+                    aria-label="edit category"
+                    (click)="openEditCategory(category)">
+              <mat-icon fontIcon="edit"></mat-icon>
+            </button>
+            <button mat-icon-button color="primary" aria-hidden="false"
+                    aria-label="delete category"
+                    (click)="deleteCategory(category)">
+              <mat-icon fontIcon="delete"></mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-list-item>
+      <mat-list role="list" style="margin-left: 2rem">
+        @for (value of categoryKeyValue.value; track value) {
+          <mat-list-item role="listitem">
+            {{ value }}
+          </mat-list-item>
+        }
+      </mat-list>
+    }
+  }
+</mat-list>
+@if (categories.length === 0) {
+  <div class="no-categories-available">
+    <span>No Categories Available</span>
+  </div>
+}

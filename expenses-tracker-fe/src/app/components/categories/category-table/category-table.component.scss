@@ -1,0 +1,12 @@
+.list-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.no-categories-available {
+  display: block;
+  margin: auto;
+  padding: 1rem;
+  font-size: 12px;
+}

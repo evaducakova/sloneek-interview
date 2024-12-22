@@ -23,7 +23,7 @@ import {BalanceCardComponent} from '../balance-card/balance-card.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TransactionsDashboardComponent {
-  transactionsFacadeService: TransactionsFacadeService = inject(TransactionsFacadeService);
+  readonly transactionsFacadeService: TransactionsFacadeService = inject(TransactionsFacadeService);
 
   transactions$: Observable<Transaction[]>;
   balance$: Observable<TransactionBalance>;

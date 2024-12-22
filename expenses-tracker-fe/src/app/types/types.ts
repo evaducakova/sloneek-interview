@@ -13,7 +13,8 @@ export interface Transaction {
 export type TransactionType = 'income' | 'expense';
 
 export interface Category {
-  [key: string]: string[];
+  id: string;
+  value: { [key: string]: string[] };
 }
 
 export interface TransactionBalance {

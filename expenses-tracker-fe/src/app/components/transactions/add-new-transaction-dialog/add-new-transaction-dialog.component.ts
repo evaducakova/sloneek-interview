@@ -47,16 +47,15 @@ import {Observable} from "rxjs";
   styleUrl: './add-new-transaction-dialog.component.scss',
 })
 export class AddNewTransactionDialogComponent {
-  transactionsFacadeService: TransactionsFacadeService = inject(TransactionsFacadeService);
-  formBuilder: FormBuilder = inject(FormBuilder);
+  readonly transactionsFacadeService: TransactionsFacadeService = inject(TransactionsFacadeService);
+  readonly dialogRef: MatDialogRef<AddNewTransactionDialogComponent> = inject(MatDialogRef<AddNewTransactionDialogComponent>)
+  readonly formBuilder: FormBuilder = inject(FormBuilder);
   transactionForm: FormGroup;
 
-  incomeCategories$: Observable<Category>;
-  expenseCategories$: Observable<Category>;
+  incomeCategories$: Observable<Category[]>;
+  expenseCategories$: Observable<Category[]>;
 
-  constructor(
-    private dialogRef: MatDialogRef<AddNewTransactionDialogComponent>
-  ) {
+  constructor() {
     this.transactionForm = this.formBuilder.group({
       name: ['', Validators.required],
       date: ['', Validators.required],

@@ -1,25 +1,29 @@
 import {ActionReducer, createReducer, on} from '@ngrx/store';
 import {
+  addOrEditExpenseCategory,
+  addOrEditIncomeCategory,
   addSampleData,
   addTransaction,
   loadExpenseCategoriesSuccess,
   loadIncomeCategoriesSuccess,
   loadTransactionsSuccess,
+  removeExpenseCategory,
+  removeIncomeCategory,
   saveToLocalStorageFailure,
 } from './transactions.actions';
 import {Category, Transaction} from '../types/types';
 
 export interface TransactionsState {
   transactions: Transaction[];
-  incomeCategories: Category;
-  expenseCategories: Category;
+  incomeCategories: Category[];
+  expenseCategories: Category[];
   error?: string;
 }
 
 export const initialState: TransactionsState = {
   transactions: [],
-  incomeCategories: {} as Category,
-  expenseCategories: {} as Category,
+  incomeCategories: [],
+  expenseCategories: [],
 };
 
 export const transactionsReducer: ActionReducer<TransactionsState> =
@@ -52,5 +56,25 @@ export const transactionsReducer: ActionReducer<TransactionsState> =
     on(loadExpenseCategoriesSuccess, (state, {categories}) => ({
       ...state,
       expenseCategories: categories
+    })),
+    on(addOrEditIncomeCategory, (state, {category}) => ({
+      ...state,
+      incomeCategories: state.incomeCategories.some(cat => cat.id === category.id)
+        ? state.incomeCategories.map(cat => cat.id === category.id ? category : cat)
+        : [...state.incomeCategories, category],
+    })),
+    on(addOrEditExpenseCategory, (state, {category}) => ({
+      ...state,
+      expenseCategories: state.expenseCategories.some(cat => cat.id === category.id)
+        ? state.expenseCategories.map(cat => cat.id === category.id ? category : cat)
+        : [...state.expenseCategories, category],
+    })),
+    on(removeIncomeCategory, (state, {id}) => ({
+      ...state,
+      incomeCategories: state.incomeCategories.filter(cat => cat.id !== id),
+    })),
+    on(removeExpenseCategory, (state, {id}) => ({
+      ...state,
+      expenseCategories: state.expenseCategories.filter(cat => cat.id !== id),
     })),
   );

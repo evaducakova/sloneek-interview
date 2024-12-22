@@ -1,9 +1,16 @@
 .categories {
   margin-top: 2rem;
-  width: calc(100% - 20rem);
+  width: calc(100% - 22rem);
   background-color: #f9e3e0;
   margin-bottom: 2rem;
-  padding: 1rem 10rem 1rem 3rem;
+  padding: 1rem 3rem;
   display: flex;
+  gap: 3rem;
   justify-content: space-between;
+
+  &__table-header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
 }

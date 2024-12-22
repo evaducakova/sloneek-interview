@@ -1,0 +1,56 @@
+@if (data.category) {
+  <h2 mat-dialog-title>Edit Category</h2>
+} @else {
+  <h2 mat-dialog-title>Add New Category</h2>
+}
+@if (categoryForm) {
+  <mat-dialog-content>
+    <form [formGroup]="categoryForm">
+      <mat-form-field appearance="fill" class="form-row--name">
+        <mat-label>Category Name</mat-label>
+        <input matInput formControlName="name" required/>
+        @if (categoryForm.get('name')?.hasError('required')) {
+          <mat-error>Category name is required</mat-error>
+        }
+      </mat-form-field>
+      <div formArrayName="subcategories">
+        @for (subcategory of subcategories.controls; track subcategory; let i = $index) {
+          <div [formGroupName]="i" class="form-row">
+            <mat-form-field appearance="fill">
+              <mat-label>Subcategory</mat-label>
+              <input matInput formControlName="subCategory" required/>
+              @if (subcategory.get('subCategory')?.hasError('required')) {
+                <mat-error>Subcategory is required</mat-error>
+              }
+            </mat-form-field>
+            <button mat-icon-button color="warn" aria-hidden="false"
+                    aria-label="delete subcategory"
+                    (click)="deleteSubcategory(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        }
+      </div>
+      <button mat-flat-button color="primary" aria-hidden="false"
+              aria-label="add subcategory" (click)="addSubcategory()">Add
+        Subcategory
+      </button>
+    </form>
+
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-flat-button mat-dialog-close aria-hidden="false"
+            aria-label="dialog close">Cancel
+    </button>
+    <button
+      mat-flat-button
+      color="primary"
+      aria-hidden="false"
+      aria-label="dialog save"
+      (click)="saveCategory()"
+      [disabled]="!categoryForm.valid"
+    >
+      Save
+    </button>
+  </mat-dialog-actions>
+}
