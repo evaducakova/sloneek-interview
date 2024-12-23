@@ -10,7 +10,9 @@ import {
   addTransaction,
   loadExpenseCategoriesFromLocalStorage,
   loadIncomeCategoriesFromLocalStorage,
-  loadTransactionsFromLocalStorage, removeExpenseCategory, removeIncomeCategory,
+  loadTransactionsFromLocalStorage,
+  removeExpenseCategory,
+  removeIncomeCategory,
 } from '../store/transactions.actions';
 import {transactionSelectors} from '../store/transaction.selector';
 import {TransactionsUtil} from "../utils/transactions.util";

@@ -34,8 +34,6 @@ export class CategoriesDashboardComponent {
   expenseCategories$: Observable<Category[]>;
 
   constructor() {
-    this.transactionsFacadeService.loadIncomeCategories();
-    this.transactionsFacadeService.loadExpenseCategories();
     this.incomeCategories$ = this.transactionsFacadeService.selectIncomeCategories();
     this.expenseCategories$ = this.transactionsFacadeService.selectExpenseCategories();
   }

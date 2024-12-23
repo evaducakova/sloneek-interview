@@ -6,7 +6,7 @@
 @if (categoryForm) {
   <mat-dialog-content>
     <form [formGroup]="categoryForm">
-      <mat-form-field appearance="fill" class="form-row--name">
+      <mat-form-field appearance="fill" class="form-row-without-button">
         <mat-label>Category Name</mat-label>
         <input matInput formControlName="name" required/>
         @if (categoryForm.get('name')?.hasError('required')) {
@@ -15,7 +15,7 @@
       </mat-form-field>
       <div formArrayName="subcategories">
         @for (subcategory of subcategories.controls; track subcategory; let i = $index) {
-          <div [formGroupName]="i" class="form-row">
+          <div [formGroupName]="i" class="form-row" [class.form-row-without-button]="i === 0">
             <mat-form-field appearance="fill">
               <mat-label>Subcategory</mat-label>
               <input matInput formControlName="subCategory" required/>
@@ -23,11 +23,13 @@
                 <mat-error>Subcategory is required</mat-error>
               }
             </mat-form-field>
-            <button mat-icon-button color="warn" aria-hidden="false"
-                    aria-label="delete subcategory"
-                    (click)="deleteSubcategory(i)">
-              <mat-icon>delete</mat-icon>
-            </button>
+            @if (i > 0) {
+              <button mat-icon-button color="warn" aria-hidden="false"
+                      aria-label="delete subcategory"
+                      (click)="deleteSubcategory(i)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            }
           </div>
         }
       </div>

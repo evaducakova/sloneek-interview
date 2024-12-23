@@ -22,6 +22,7 @@ import {
   NativeDateAdapter,
 } from '@angular/material/core';
 import {Observable} from "rxjs";
+import {AsyncPipe, NgTemplateOutlet} from "@angular/common";
 
 @Component({
   selector: 'app-add-new-transaction-dialog',
@@ -38,6 +39,9 @@ import {Observable} from "rxjs";
     MatNativeDateModule,
     MatSelectModule,
     ReactiveFormsModule,
+    AsyncPipe,
+    NgTemplateOutlet,
+
   ],
   providers: [
     {provide: DateAdapter, useClass: NativeDateAdapter},
@@ -62,15 +66,33 @@ export class AddNewTransactionDialogComponent {
       type: ['', Validators.required],
       description: [''],
       value: ['', Validators.required],
-      category: ['', Validators.required],
+      mainCategory: ['', Validators.required],
+      subcategory: ['', Validators.required],
     });
 
     this.incomeCategories$ = this.transactionsFacadeService.selectIncomeCategories();
     this.expenseCategories$ = this.transactionsFacadeService.selectExpenseCategories();
   }
 
+  getMainCategories(categories: Category[]): Array<{ id: string, name: string }> {
+    return categories.map(category => ({
+      id: category.id,
+      name: Object.keys(category.value)[0]
+    }))
+  }
+
+  getSubcategories(categories: Category[]): string[] {
+  const mainCategory = this.transactionForm.get('mainCategory')?.value;
+  const category = categories.find(cat => Object.keys(cat.value).includes(mainCategory));
+  return category ? category.value[mainCategory] : [];
+}
+
   saveTransaction(): void {
-    const newTransaction: Transaction = this.transactionForm.value;
+    const formValue = this.transactionForm.value;
+    const newTransaction: Transaction = {
+      ...formValue,
+      category: {[formValue.mainCategory]: formValue.subcategory}
+    };
     this.transactionsFacadeService.addTransaction(newTransaction);
     this.dialogRef.close();
   }

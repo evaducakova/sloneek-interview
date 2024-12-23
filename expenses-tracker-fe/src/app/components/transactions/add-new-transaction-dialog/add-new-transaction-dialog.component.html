@@ -5,6 +5,9 @@
       <mat-form-field appearance="fill">
         <mat-label>Name</mat-label>
         <input matInput formControlName="name" required/>
+        @if (transactionForm.get('name')?.hasError('required')) {
+          <mat-error>Transaction name is required</mat-error>
+        }
       </mat-form-field>
     </div>
 
@@ -19,6 +22,9 @@
         />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
+        @if (transactionForm.get('date')?.hasError('required')) {
+          <mat-error>Transaction date is required</mat-error>
+        }
       </mat-form-field>
     </div>
 
@@ -29,13 +35,16 @@
           <mat-option value="income">Income</mat-option>
           <mat-option value="expense">Expense</mat-option>
         </mat-select>
+        @if (transactionForm.get('type')?.hasError('required')) {
+          <mat-error>Transaction type is required</mat-error>
+        }
       </mat-form-field>
     </div>
 
     <div class="form-row">
       <mat-form-field appearance="fill">
         <mat-label>Description</mat-label>
-        <textarea matInput formControlName="description" required></textarea>
+        <textarea matInput formControlName="description"></textarea>
       </mat-form-field>
     </div>
 
@@ -43,18 +52,63 @@
       <mat-form-field appearance="fill">
         <mat-label>Value</mat-label>
         <input matInput type="number" formControlName="value" required/>
+        @if (transactionForm.get('value')?.hasError('required')) {
+          <mat-error>Transaction value is required</mat-error>
+        }
       </mat-form-field>
     </div>
 
-    <div class="form-row">
-      <mat-form-field appearance="fill">
-        <mat-label>Category</mat-label>
-        <mat-select formControlName="category" required>
-          <mat-option value="income">Income</mat-option>
-          <mat-option value="food">Food</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
+    @if (transactionForm.get('type')?.value === 'income') {
+      @if (incomeCategories$ | async; as categories) {
+        <ng-container
+          *ngTemplateOutlet="categoryTemplate; context: { $implicit: categories }"></ng-container>
+      }
+    }
+
+    @if (transactionForm.get('type')?.value === 'expense') {
+      @if (expenseCategories$ | async; as categories) {
+        <ng-container
+          *ngTemplateOutlet="categoryTemplate; context: { $implicit: categories }"></ng-container>
+      }
+    }
+
+    <ng-template #categoryTemplate let-categories>
+      <div class="form-row">
+        <mat-form-field appearance="fill">
+          <mat-label>Main Category</mat-label>
+          <mat-select formControlName="mainCategory" required>
+            @for (category of getMainCategories(categories); track category.id) {
+              <mat-option [value]="category.name">{{ category.name }}
+              </mat-option>
+            }
+            @if (getMainCategories(categories).length === 0) {
+              <mat-option class="no-categories-available">
+                You need to add some categories first
+              </mat-option>
+            }
+          </mat-select>
+          @if (transactionForm.get('mainCategory')?.hasError('required')) {
+            <mat-error>Transaction category is required</mat-error>
+          }
+        </mat-form-field>
+      </div>
+
+      @if (transactionForm.get('mainCategory')?.value) {
+        <div class="form-row">
+          <mat-form-field appearance="fill">
+            <mat-label>Subcategory</mat-label>
+            <mat-select formControlName="subcategory" required>
+              @for (category of getSubcategories(categories); track category) {
+                <mat-option [value]="category">{{ category }}</mat-option>
+              }
+            </mat-select>
+            @if (transactionForm.get('subcategory')?.hasError('required')) {
+              <mat-error>Transaction subcategory is required</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      }
+    </ng-template>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">

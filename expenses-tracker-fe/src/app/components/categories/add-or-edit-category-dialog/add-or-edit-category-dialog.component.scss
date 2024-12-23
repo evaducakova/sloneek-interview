@@ -2,10 +2,10 @@
   display: flex;
   gap: 1rem;
   align-items: baseline;
+}
 
-  &--name {
-    width: calc(100% - 4rem);
-  }
+.form-row-without-button {
+  width: calc(100% - 4rem);
 }
 
 mat-form-field {

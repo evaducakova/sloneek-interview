@@ -1,5 +1,6 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
+import {TransactionsFacadeService} from "./services/transactions-facade.service";
 
 @Component({
   selector: 'app-root',
@@ -9,4 +10,11 @@ import {RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  readonly transactionsFacadeService: TransactionsFacadeService = inject(TransactionsFacadeService);
+
+  constructor() {
+    this.transactionsFacadeService.loadTransactions();
+    this.transactionsFacadeService.loadIncomeCategories();
+    this.transactionsFacadeService.loadExpenseCategories();
+  }
 }

@@ -41,7 +41,10 @@
 
     <ng-container matColumnDef="category">
       <th mat-header-cell *matHeaderCellDef>Category</th>
-      <td mat-cell *matCellDef="let transaction">{{ (transaction.category | keyvalue)[0].value }}</td>
+      <td mat-cell *matCellDef="let transaction">
+        <b>{{ (transaction.category | keyvalue)[0].key }}:</b>
+        {{ (transaction.category | keyvalue)[0].value }}
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

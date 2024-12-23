@@ -29,7 +29,6 @@ export class TransactionsDashboardComponent {
   balance$: Observable<TransactionBalance>;
 
   constructor() {
-    this.transactionsFacadeService.loadTransactions();
     this.transactions$ = this.transactionsFacadeService.selectTransactions();
     this.balance$ = this.transactionsFacadeService.calculateBalance();
   }
