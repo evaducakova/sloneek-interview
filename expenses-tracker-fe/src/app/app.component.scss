@@ -2,7 +2,7 @@
   &__header {
     display: flex;
     justify-content: end;
-    color: #F2ECEC;
+    color: #F0E9E0;
     margin-right: 3rem;
   }
 
@@ -18,11 +18,11 @@
 
     a {
       text-decoration: none;
-      color: #F2ECEC;
+      color: #F0E9E0;
       display: block;
 
       &:hover {
-        color: #f9e3e0;
+        color: #FAF8F6;
       }
 
       &.active {

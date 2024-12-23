@@ -1,15 +1,90 @@
 @use '@angular/material' as mat;
+
 @include mat.core();
 
-$tropical-forest: #004d40;
-$vintage-porcelain: #F2ECEC;
-$brides-blush: #f9e3e0;
-$carbon: #333333;
-$bigfoot: #6d4c41;
-$droplet: #a3d9ff;
+$mocha-mousse-palette: (
+  50: #f2e9e7,
+  100: #e0c8c3,
+  200: #ccaa9c,
+  300: #b88b75,
+  400: #a97759,
+  500: #A47764,
+  600: #8f5f4f,
+  700: #7d5245,
+  800: #6b453b,
+  900: #4d3029,
+  A100: #f2e9e7,
+  A200: #e0c8c3,
+  A400: #a97759,
+  A700: #7d5245,
+  contrast: (
+    50: rgba(0, 0, 0, 0.87),
+    100: rgba(0, 0, 0, 0.87),
+    200: rgba(0, 0, 0, 0.87),
+    300: rgba(0, 0, 0, 0.87),
+    400: rgba(0, 0, 0, 0.87),
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: rgba(0, 0, 0, 0.87),
+    A200: rgba(0, 0, 0, 0.87),
+    A400: rgba(0, 0, 0, 0.87),
+    A700: white,
+  )
+);
 
-$primary: mat.define-palette(mat.$teal-palette, 900);
-$accent: mat.define-palette(mat.$blue-palette, 100);
+$rose-tan-palette: (
+  50: #fbeeee,
+  100: #f5d5d4,
+  200: #efbab8,
+  300: #e99e9b,
+  400: #e48781,
+  500: #D19C97,
+  600: #c18b86,
+  700: #b07a75,
+  800: #9f6964,
+  900: #824d48,
+  A100: #ffdada,
+  A200: #ffb5b5,
+  A400: #ff8f8f,
+  A700: #ff7676,
+  contrast: (
+    50: rgba(0, 0, 0, 0.87),
+    100: rgba(0, 0, 0, 0.87),
+    200: rgba(0, 0, 0, 0.87),
+    300: rgba(0, 0, 0, 0.87),
+    400: rgba(0, 0, 0, 0.87),
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: rgba(0, 0, 0, 0.87),
+    A200: rgba(0, 0, 0, 0.87),
+    A400: rgba(0, 0, 0, 0.87),
+    A700: white,
+  )
+);
+
+$mocha-mousse: #A47764;
+$gardenia: #F0E9E0;
+$off-white: #FAF8F6;
+$rose-tan: #D19C97;
+$dark-red: #8B0000;
+$forest-green: #228B22;
+$black: #000000;
+
+$track-and-field: #D16F53;
+$cobblestone: #A89A8F;
+$tendril: #899F6A;
+$viola: #A793B9;
+$moonlight-mauve: #CA80B4;
+$cornflower-blue: #7391C9;
+
+$primary: mat.define-palette($mocha-mousse-palette, 500);
+$accent: mat.define-palette($rose-tan-palette, 500);
 
 $my-theme: mat.define-light-theme((
   color: (
@@ -23,10 +98,10 @@ $my-theme: mat.define-light-theme((
 @include mat.all-component-themes($my-theme);
 
 body {
-  background: linear-gradient(to right, $vintage-porcelain 20%, $tropical-forest 20%);
+  background: linear-gradient(to right, $rose-tan 20%, $mocha-mousse 20%);
   margin: 0;
   font-family: Arial, sans-serif;
-  color: $carbon;
+  color: $black;
 }
 
 h1, h2, h3, h4, h5, h6 {

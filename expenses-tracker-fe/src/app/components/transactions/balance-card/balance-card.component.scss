@@ -1,8 +1,9 @@
 .overview-card {
-  background-color: #a3d9ff;
+  background-color: #D19C97;
   border-radius: 5px;
   padding: 20px;
   margin-bottom: 20px;
+  color: #FAF8F6;
 
   &__balance {
     justify-content: center;
@@ -31,11 +32,11 @@
 
   &__incomes-value {
     font-size: 14px;
-    color: #004d40;
+    color: #228B22;
   }
 
   &__expenses-value {
     font-size: 14px;
-    color: crimson;
+    color: #8B0000;
   }
 }
