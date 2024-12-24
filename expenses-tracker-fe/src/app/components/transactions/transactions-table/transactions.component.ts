@@ -6,8 +6,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDialog} from '@angular/material/dialog';
 import {AddNewTransactionDialogComponent} from '../add-new-transaction-dialog/add-new-transaction-dialog.component';
-import {TransactionsFacadeService} from "../../../services/transactions-facade.service";
-import {TransactionValuePipe} from "../../../utils/transaction-value.pipe";
+import {TransactionsFacadeService} from '../../../services/transactions-facade.service';
+import {TransactionValuePipe} from '../../../utils/transaction-value.pipe';
 
 @Component({
   selector: 'app-transactions',

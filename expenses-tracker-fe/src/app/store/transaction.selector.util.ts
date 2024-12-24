@@ -1,4 +1,4 @@
-import {Transaction, TransactionBalance} from "../types/types";
+import {Transaction, TransactionBalance} from '../types/types';
 
 export class TransactionSelectorUtil {
   static calculateBalance(transactions: Transaction[]): TransactionBalance {

@@ -1,13 +1,13 @@
 import {Component, inject, Input} from '@angular/core';
-import {MatButtonModule} from "@angular/material/button";
-import {MatDividerModule} from "@angular/material/divider";
-import {MatIconModule} from "@angular/material/icon";
-import {MatListModule} from "@angular/material/list";
-import {Category, TransactionType} from "../../../types/types";
-import {MatDialog} from "@angular/material/dialog";
-import {AddOrEditCategoryDialogComponent} from "../add-or-edit-category-dialog/add-or-edit-category-dialog.component";
-import {KeyValuePipe} from "@angular/common";
-import {TransactionsFacadeService} from "../../../services/transactions-facade.service";
+import {MatButtonModule} from '@angular/material/button';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatIconModule} from '@angular/material/icon';
+import {MatListModule} from '@angular/material/list';
+import {Category, TransactionType} from '../../../types/types';
+import {MatDialog} from '@angular/material/dialog';
+import {AddOrEditCategoryDialogComponent} from '../add-or-edit-category-dialog/add-or-edit-category-dialog.component';
+import {KeyValuePipe} from '@angular/common';
+import {TransactionsFacadeService} from '../../../services/transactions-facade.service';
 
 @Component({
   selector: 'app-category-table',

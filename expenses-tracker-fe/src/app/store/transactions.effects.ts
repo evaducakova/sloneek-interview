@@ -22,7 +22,7 @@ import {
 } from './transactions.actions';
 import {Category, Transaction} from '../types/types';
 import {select, Store} from '@ngrx/store';
-import {transactionSelectors} from "./transaction.selector";
+import {transactionSelectors} from './transaction.selector';
 
 @Injectable()
 export class TransactionsEffects {

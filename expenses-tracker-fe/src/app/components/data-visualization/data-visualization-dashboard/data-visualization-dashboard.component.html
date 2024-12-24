@@ -1,0 +1,45 @@
+<div class="data-dashboard">
+  <div class="data-dashboard__column">
+    <h2>Incomes</h2>
+    <app-transactions-by-categories
+      [transactions]="incomeTransactions$ | async"
+      chartTitle="Income Transactions By Category">
+    </app-transactions-by-categories>
+    <mat-divider style="margin-bottom: 3rem"></mat-divider>
+
+    <app-transactions-by-category-value
+      [transactions]="incomeTransactions$ | async"
+      chartTitle="Income Transactions By Category Value"
+      chartLabel="Income Transactions">
+    </app-transactions-by-category-value>
+    <mat-divider style="margin-bottom: 3rem"></mat-divider>
+
+    <app-transactions-by-average-value
+      [transactions]="incomeTransactions$ | async"
+      chartTitle="Income Transactions By Average Category Value"
+      chartLabel="Income Transactions">
+    </app-transactions-by-average-value>
+  </div>
+
+  <div class="data-dashboard__column">
+    <h2>Expenses</h2>
+    <app-transactions-by-categories
+      [transactions]="expenseTransactions$ | async"
+      chartTitle="Expense Transactions By Category">
+    </app-transactions-by-categories>
+    <mat-divider style="margin-bottom: 3rem"></mat-divider>
+
+    <app-transactions-by-category-value
+      [transactions]="expenseTransactions$ | async"
+      chartTitle="Expense Transactions By Category Value"
+      chartLabel="Expense Transactions">
+    </app-transactions-by-category-value>
+    <mat-divider style="margin-bottom: 3rem"></mat-divider>
+
+    <app-transactions-by-average-value
+      [transactions]="expenseTransactions$ | async"
+      chartTitle="Expense Transactions By Average Category Value"
+      chartLabel="Expense Transactions">
+    </app-transactions-by-average-value>
+  </div>
+</div>

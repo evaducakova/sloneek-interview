@@ -21,8 +21,8 @@ import {
   MatNativeDateModule,
   NativeDateAdapter,
 } from '@angular/material/core';
-import {Observable} from "rxjs";
-import {AsyncPipe, NgTemplateOutlet} from "@angular/common";
+import {Observable} from 'rxjs';
+import {AsyncPipe, NgTemplateOutlet} from '@angular/common';
 
 @Component({
   selector: 'app-add-new-transaction-dialog',
@@ -52,7 +52,7 @@ import {AsyncPipe, NgTemplateOutlet} from "@angular/common";
 })
 export class AddNewTransactionDialogComponent {
   readonly transactionsFacadeService: TransactionsFacadeService = inject(TransactionsFacadeService);
-  readonly dialogRef: MatDialogRef<AddNewTransactionDialogComponent> = inject(MatDialogRef<AddNewTransactionDialogComponent>)
+  readonly dialogRef: MatDialogRef<AddNewTransactionDialogComponent> = inject(MatDialogRef<AddNewTransactionDialogComponent>);
   readonly formBuilder: FormBuilder = inject(FormBuilder);
   transactionForm: FormGroup;
 
@@ -78,14 +78,14 @@ export class AddNewTransactionDialogComponent {
     return categories.map(category => ({
       id: category.id,
       name: Object.keys(category.value)[0]
-    }))
+    }));
   }
 
   getSubcategories(categories: Category[]): string[] {
-  const mainCategory = this.transactionForm.get('mainCategory')?.value;
-  const category = categories.find(cat => Object.keys(cat.value).includes(mainCategory));
-  return category ? category.value[mainCategory] : [];
-}
+    const mainCategory = this.transactionForm.get('mainCategory')?.value;
+    const category = categories.find(cat => Object.keys(cat.value).includes(mainCategory));
+    return category ? category.value[mainCategory] : [];
+  }
 
   saveTransaction(): void {
     const formValue = this.transactionForm.value;

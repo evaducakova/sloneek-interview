@@ -15,7 +15,7 @@ import {
   removeIncomeCategory,
 } from '../store/transactions.actions';
 import {transactionSelectors} from '../store/transaction.selector';
-import {TransactionsUtil} from "../utils/transactions.util";
+import {TransactionsUtil} from '../utils/transactions.util';
 
 @Injectable({
   providedIn: 'root',
@@ -37,6 +37,14 @@ export class TransactionsFacadeService {
 
   selectTransactions(): Observable<Transaction[]> {
     return this.store.pipe(select(transactionSelectors.selectTransactions));
+  }
+
+  selectIncomeTransactions(): Observable<Transaction[]> {
+    return this.store.pipe(select(transactionSelectors.selectIncomeTransactions));
+  }
+
+  selectExpenseTransactions(): Observable<Transaction[]> {
+    return this.store.pipe(select(transactionSelectors.selectExpenseTransactions));
   }
 
   selectIncomeCategories(): Observable<Category[]> {

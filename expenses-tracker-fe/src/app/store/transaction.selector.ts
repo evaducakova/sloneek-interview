@@ -1,7 +1,7 @@
 import {createFeatureSelector, createSelector} from '@ngrx/store';
 import {TransactionsState} from './transactions.reducer';
-import {Category, Transaction, TransactionBalance} from "../types/types";
-import {TransactionSelectorUtil} from "./transaction.selector.util";
+import {Category, Transaction, TransactionBalance} from '../types/types';
+import {TransactionSelectorUtil} from './transaction.selector.util';
 
 const selectTransactionsState =
   createFeatureSelector<TransactionsState>('transactionsState');
@@ -9,6 +9,16 @@ const selectTransactionsState =
 const selectTransactions = createSelector(
   selectTransactionsState,
   (state: TransactionsState): Transaction[] => state.transactions
+);
+
+const selectIncomeTransactions = createSelector(
+  selectTransactionsState,
+  (state: TransactionsState): Transaction[] => state.transactions.filter(transaction => transaction.type === 'income')
+);
+
+const selectExpenseTransactions = createSelector(
+  selectTransactionsState,
+  (state: TransactionsState): Transaction[] => state.transactions.filter(transaction => transaction.type === 'expense')
 );
 
 const selectIncomeCategories = createSelector(
@@ -28,6 +38,8 @@ const calculateBalance = createSelector(
 
 export const transactionSelectors = {
   selectTransactions,
+  selectIncomeTransactions,
+  selectExpenseTransactions,
   selectIncomeCategories,
   selectExpenseCategories,
   calculateBalance

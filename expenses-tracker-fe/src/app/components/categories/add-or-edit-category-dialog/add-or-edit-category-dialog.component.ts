@@ -1,7 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {MatButtonModule} from "@angular/material/button";
-import {MatDatepickerModule} from "@angular/material/datepicker";
+import {FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
@@ -9,15 +9,15 @@ import {
   MatDialogContent,
   MatDialogRef,
   MatDialogTitle
-} from "@angular/material/dialog";
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatInputModule} from "@angular/material/input";
-import {MatIconModule} from "@angular/material/icon";
-import {MatOptionModule} from "@angular/material/core";
-import {MatSelectModule} from "@angular/material/select";
-import {Category, TransactionType} from "../../../types/types";
-import {TransactionsFacadeService} from "../../../services/transactions-facade.service";
-import {v4 as uuidv4} from "uuid";
+} from '@angular/material/dialog';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatIconModule} from '@angular/material/icon';
+import {MatOptionModule} from '@angular/material/core';
+import {MatSelectModule} from '@angular/material/select';
+import {Category, TransactionType} from '../../../types/types';
+import {TransactionsFacadeService} from '../../../services/transactions-facade.service';
+import {v4 as uuidv4} from 'uuid';
 
 @Component({
   selector: 'app-add-new-category-dialog',
