@@ -1,5 +1,6 @@
 import {Category, Transaction, TransactionType} from '../types/types';
 import {v4 as uuidv4} from 'uuid';
+import * as Highcharts from 'highcharts';
 
 export class TransactionsUtil {
 

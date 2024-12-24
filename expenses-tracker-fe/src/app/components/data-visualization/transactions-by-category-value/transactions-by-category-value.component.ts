@@ -13,7 +13,6 @@ import {TransactionsUtil} from '../../../utils/transactions.util';
     HighchartsChartModule
   ],
   templateUrl: './transactions-by-category-value.component.html',
-  styleUrl: './transactions-by-category-value.component.scss'
 })
 export class TransactionsByCategoryValueComponent implements OnChanges {
   @Input() transactions: Transaction[] | null = [];

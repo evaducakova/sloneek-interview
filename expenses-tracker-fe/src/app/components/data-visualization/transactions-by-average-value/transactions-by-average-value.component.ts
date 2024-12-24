@@ -13,7 +13,6 @@ import {TransactionsUtil} from '../../../utils/transactions.util';
     HighchartsChartModule
   ],
   templateUrl: './transactions-by-average-value.component.html',
-  styleUrl: './transactions-by-average-value.component.scss'
 })
 export class TransactionsByAverageValueComponent implements OnChanges {
   @Input() transactions: Transaction[] | null = [];
